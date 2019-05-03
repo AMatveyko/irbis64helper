@@ -23,11 +23,11 @@ namespace irbis64helper.Data
         internal Response SendRequestAndGetResponse(Request request)
         {
             if (_debug)
-                Debug.Debug.PutDebug($"Request: \n{request.ToString()}");
+                Logger.Say.PutDebug($"Request: \n{request.ToString()}");
             SendPacket(request);
             Response response = GetAnswer();
             if (_debug)
-                Debug.Debug.PutDebug($"Response: \n{response.ToString()}");
+                Logger.Say.PutDebug($"Response: \n{response.ToString()}");
             return response;
         }
         private void SendPacket(Request request)
@@ -70,7 +70,7 @@ namespace irbis64helper.Data
             }
             catch (Exception e)
             {
-                Debug.Debug.PutError(e.Message);
+                Logger.Say.PutError(e.Message);
                 result = false;
             }
             return result;

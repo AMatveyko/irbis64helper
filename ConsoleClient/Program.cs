@@ -1,6 +1,6 @@
 ﻿using irbis64helper.Auth;
 using irbis64helper.Data;
-using irbis64helper.Debug;
+using irbis64helper.Logger;
 using irbis64helper.Model;
 using System;
 
@@ -10,7 +10,7 @@ namespace ConsoleClient
     {
         static void Main(string[] args)
         {
-            Debug.Message += DebugMeth;
+            Say.Message += DebugMeth;
             DbFieldsInfo dbFieldsInfo = new DbFieldsInfo();
             dbFieldsInfo.UNameField = "30";
             dbFieldsInfo.UPassField = "22";

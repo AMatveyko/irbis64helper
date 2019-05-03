@@ -19,13 +19,13 @@ namespace irbis64helper.Data
                 }
                 else
                 {
-                    Debug.Debug.PutError(Model.ErrorCode.GetErrorValue(packetData.ErrorCode));
+                    Logger.Say.PutError(Model.ErrorCode.GetErrorValue(packetData.ErrorCode));
                     return false;
                 }
             }
             else
             {
-                Debug.Debug.PutError("PacketData not a ResponsePacketData!!!");
+                Logger.Say.PutError("PacketData not a ResponsePacketData!!!");
                 return false;
             }
         }
@@ -38,7 +38,7 @@ namespace irbis64helper.Data
             }
             else
             {
-                Debug.Debug.PutError("PacketData not a SearchPacketData!!!");
+                Logger.Say.PutError("PacketData not a SearchPacketData!!!");
                 return false;
             }
         }
