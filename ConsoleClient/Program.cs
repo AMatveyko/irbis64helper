@@ -91,7 +91,9 @@ namespace ConsoleClient
         {
             String rdrId = args[1];
             String rdrPwd = args[2];
-            Console.Write(_authHelper.CheckAccount(rdrId, rdrPwd));
+            String result = _authHelper.CheckAccount(rdrId, rdrPwd);
+            Console.Write(result);
+            Logger.WriteLog($"{args[1]}@{args[2]}: {result}");
         }
         private static void WriteLogin(String[] args)
         {
@@ -99,6 +101,7 @@ namespace ConsoleClient
             String ipAddr = args[2];
             String macAddr = args[3];
             String calledStation = args[4];
+            Logger.WriteLog($"Start: {rdrId} {ipAddr} {macAddr} {calledStation}");
             _authHelper.WriteAccountLoginInfo(rdrId, ipAddr, macAddr, calledStation);
         }
         private static void WriteLogout(String[] args)
@@ -107,6 +110,7 @@ namespace ConsoleClient
             String sessionTime = args[2];
             String inputBytes = args[3];
             String outputBytes = args[4];
+            Logger.WriteLog($"Stop: {rdrId}, Time {sessionTime}second, input {inputBytes}, output {outputBytes}");
             _authHelper.WriteAccountLogoutInfo(rdrId, sessionTime, inputBytes, outputBytes);
         }
         private static void Help()

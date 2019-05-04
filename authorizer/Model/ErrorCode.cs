@@ -40,6 +40,7 @@ namespace irbis64helper.Model
                 { "-602" , "ERR_RECLOCKED" },
                 { "-603" , "REC_DELETE" },
                 { "-607" , "AUTOIN_ERROR" },
+                { "-608" , ""},
                 { "-300" , "ERR_DBEWLOCK" },
                 { "-400" , "ERR_FILEMASTER" },
                 { "-401" , "ERR_FILEINVERT" },
