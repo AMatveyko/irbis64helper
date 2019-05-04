@@ -110,7 +110,7 @@ namespace ConsoleClient
             String sessionTime = args[2];
             String inputBytes = args[3];
             String outputBytes = args[4];
-            Logger.WriteLog($"Stop: {rdrId}, Time {sessionTime}second, input {inputBytes}, output {outputBytes}");
+            Logger.WriteLog($"Stop: {rdrId}, Time {sessionTime} sec, input {inputBytes}, output {outputBytes}");
             _authHelper.WriteAccountLogoutInfo(rdrId, sessionTime, inputBytes, outputBytes);
         }
         private static void Help()
