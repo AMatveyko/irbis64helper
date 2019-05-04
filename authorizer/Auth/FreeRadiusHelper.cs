@@ -33,27 +33,36 @@ namespace irbis64helper.Auth
             return result ? "Accept" : "Reject";
         }
 
-        public bool WriteAccountLoginInfo(string idRdr, string ipAddr, string macAddr, string calledStation)
+        public void WriteAccountLoginInfo(string idRdr, string ipAddr, string macAddr, string calledStation)
         {
-            bool result = false;
+            String date;
+            String time;
+            Date.GetDateTime(out date, out time);
+            String value = $"^X{ipAddr}^D{date}^CWi_Fi(Вход)^V{calledStation}^U{macAddr}^1{time}^2{time}";
+            WriteAccountInfo(idRdr, value);
+        }
+
+        public void WriteAccountLogoutInfo(string idRdr, string sessionTime, string inputByte, string outputByte)
+        {
+            String date;
+            String time;
+            Date.GetDateTime(out date, out time);
+            String value = $"^D{date}^CWi_Fi(Выход) {sessionTime}^1{time}^2{time}";
+            WriteAccountInfo(idRdr, value);
+        }
+        private void WriteAccountInfo(String idRdr, String value)
+        {
+            String fieldNumber = "40";
             Response response = _db.Login();
-            if(CheckResponse.ErrorCode(response))
+            if (CheckResponse.ErrorCode(response))
             {
                 response = _db.FindReader(idRdr);
                 SearchPacketData packetData = (SearchPacketData)response.Data;
                 String mfn = packetData.GetMfn();
                 response = _db.ReadRecord(mfn);
-                String separatorStr = Encoding.UTF8.GetString(new byte[] { 31, 30 });
-                response.Data.Rows[1] += separatorStr + "40#^X172.16.11.200^D20190423^CWi_Fi(dfsdf)^VTestTestTest^U2C:57:31:6E:F9:C0^1195038^2195038";
+                EditRecord.AddField(ref response, fieldNumber, value);
                 response = _db.WriteRecord(mfn, response.Data.Rows[1]);
-
             }
-            return true;
-        }
-
-        public bool WriteAccountLogoutInfo(string idRdr, string sessionTime, string inputByte, string outputByte)
-        {
-            throw new NotImplementedException();
         }
     }
 }

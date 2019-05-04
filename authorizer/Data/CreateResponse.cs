@@ -38,7 +38,7 @@ namespace irbis64helper.Data
             }
             if (response.Command == "C")
             {
-                String separatorStr = Encoding.UTF8.GetString(new byte[] { 31, 30 });
+                String separatorStr = FieldSeparator.GetString;
                 response.Data.Rows.Add(splitedResponse[10]); //error code
                 response.Data.Rows.Add($"{splitedResponse[11]}0"); //mfn#status
                 for (int i = 12; i < splitedResponse.Length - 1; i++)

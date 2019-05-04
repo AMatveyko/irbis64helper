@@ -66,7 +66,7 @@ namespace irbis64helper.Data
         public Response ReadRecord(String mfn)
         {
             String db = _dbInfo.DbName;
-            String lockRecord = "0";
+            String lockRecord = "1";
             PacketData packetData = new PacketData($"{db}\n{mfn}\n{lockRecord}");
             Request request = CreateRequest.ReadRecord(_arm, _guid, Seq, packetData);
             return _connection.SendRequestAndGetResponse(request);

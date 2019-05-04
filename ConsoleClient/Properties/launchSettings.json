@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ConsoleClient": {
+      "commandName": "Project",
+      "commandLineArgs": "access 10010 1231"
+    }
+  }
+}
