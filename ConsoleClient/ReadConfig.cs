@@ -33,7 +33,6 @@ namespace ConsoleClient
             int port;
             String userName, password, db, nameField, pwdField, debug;
             _configFile = AppDomain.CurrentDomain.BaseDirectory + _configFile;
-            Console.WriteLine(_configFile);
             if (File.Exists(_configFile))
             {
                 try
