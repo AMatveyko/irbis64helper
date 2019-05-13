@@ -82,6 +82,20 @@ namespace irbis64helper.Data
             Request request = CreateRequest.WriteRecord(_arm, _guid, Seq, packetData);
             return _connection.SendRequestAndGetResponse(request); ;
         }
+        public Record GetRecordById(String rdrId)
+        {
+            Response response = Login();
+            if (CheckResponse.ErrorCode(response))
+            {
+                response = FindReader(rdrId);
+                SearchPacketData packetData = (SearchPacketData)response.Data;
+                response = ReadRecord(packetData.GetMfn());
+                RecordPacketData recordData = (RecordPacketData)response.Data;
+                Record record = CreateRecord.GetRecord(recordData);
+                return record;
+            }
+            return null;
+        }
         public Response UnlockRecord(String mfn)
         {
             return null;

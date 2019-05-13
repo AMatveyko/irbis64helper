@@ -19,5 +19,6 @@ namespace irbis64helper.Data
         Response FindReader(String idRdr, String pwdRdr);
         Response ReadRecord(String mfn);
         Response WriteRecord(String mfn, String record);
+        Record GetRecordById(String rdrId);
     }
 }

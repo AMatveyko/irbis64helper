@@ -6,5 +6,5 @@
   "DbName": "RDR",
   "NameField": "30",
   "PwdField": "22",
-  "Debug": "0"
+  "Debug": "1"
 }
