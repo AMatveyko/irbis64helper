@@ -26,10 +26,10 @@ namespace ConsoleClient
             { Examples.LOGINDB,   "dotnet name.dll loginToDb 007000-91 1.1.1.1 FF:FF:FF:FF:FF:FF clientIdent" },
             { Examples.LOGOUTDB,  "dotnet name.dll logoutToDb 007000-91 60 2048 1024" },
             { Examples.LOGINCSV,  "dotnet name.dll loginToCsv 007000-91 1.1.1.1 FF:FF:FF:FF:FF:FF clientIdent" },
-            { Examples.LOGOUTCSV, "dotnet name.dll logoutToCsv 007000-91 60 2048 1024 clientIdent" }
+            { Examples.LOGOUTCSV, "dotnet name.dll logoutToCsv 007000-91 1.1.1.1 FF:FF:FF:FF:FF:FF clientIdent 60" }
         };
 
-    private static IAuthHelper _authHelper;
+        private static IAuthHelper _authHelper;
         private static IDbClient _dbClient;
 
         static void Main(string[] args)
@@ -159,38 +159,41 @@ namespace ConsoleClient
             String calledStation = args[4];
             Logger.WriteLog($"Start: {rdrId} {ipAddr} {macAddr} {calledStation}");
             Record record = _dbClient.GetRecordById(rdrId);
-            String[] values = new string[]
-            {
-                "Вход",
-                record.FIO,
-                record.Passport,
-                record.DateOfBirth,
-                calledStation,
-                ipAddr,
-                macAddr
-            };
+            String[] values = CreateValuesForCsv("Вход", ipAddr, macAddr, "0", record);
             SaveToCsv.Save(calledStation, values);
         }
         private static void LogoutToCsv(String[] args)
         {
             String rdrId = args[1];
-            String sessionTime = args[2];
-            String inputBytes = args[3];
-            String outputBytes = args[4];
-            String calledStation = args[5];
-            Logger.WriteLog($"Stop: {rdrId}, Time {sessionTime} sec, input {inputBytes}, output {outputBytes}");
+            String ipAddr = args[2];
+            String macAddr = args[3];
+            String calledStation = args[4];
+            String sessionTime = args[5];
+            Logger.WriteLog($"Stop: {rdrId}, Time {sessionTime} sec");
             Record record = _dbClient.GetRecordById(rdrId);
-            String[] values = new string[]
-            {
-                "Выход",
-                record.FIO,
-                record.Passport,
-                record.DateOfBirth,
-                calledStation,
-                sessionTime
-            };
+            String[] values = CreateValuesForCsv("Выход", ipAddr, macAddr, sessionTime, record);
             SaveToCsv.Save(calledStation, values);
         }
+        private static String[] CreateValuesForCsv(String events, String ip, String mac, String sessionTime, Record record)
+        {
+            String[] newValues = new string[]
+            {
+                events,
+                record.Id,
+                record.Surname,
+                record.Name,
+                record.Patronymic,
+                record.DateOfBirth,
+                record.PassportSeria,
+                record.PassportNumber,
+                record.PassportOffice,
+                mac,
+                ip,
+                sessionTime
+            };
+            return newValues;
+        }
+
         private static void Help()
         {
             Console.WriteLine("Examples:");

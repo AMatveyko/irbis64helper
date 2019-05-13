@@ -9,10 +9,10 @@ namespace ConsoleClient
     {
         internal static void Save(String hotspotName, String[] values)
         {
-            String dirPath = $"{AppDomain.CurrentDomain.BaseDirectory}logs/{hotspotName}";
+            String dirPath = $"{AppDomain.CurrentDomain.BaseDirectory}logs/{hotspotName}/{GetYear()}";
             Dictionary(dirPath);
             String filePath = $"{dirPath}//{GetFileName()}.csv";
-            String str = $"{GetDateTime()},{MakeString(values)}\n";
+            String str = $"{GetDate()},{GetTime()},{MakeString(values)}\n";
             byte[] buff = Encoding.UTF8.GetBytes(str);
             using (FileStream fs = new FileStream(filePath, FileMode.Append, FileAccess.Write))
             {
@@ -40,11 +40,24 @@ namespace ConsoleClient
         }
         private static String GetFileName()
         {
-            return DateTime.Now.ToString("yyyy-MMMM-dd"); ;
+            return DateTime.Now.ToString("yyyy-MMMM-dd");
+        }
+        private static String GetYear()
+        {
+            return DateTime.Now.ToString("yyyy");
         }
         private static String GetDateTime()
         {
-            return DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss");
+            return $"{GetDate()} {GetTime()}";
+        }
+        private static String GetDate()
+        {
+            //return DateTime.Now.ToString("dd MMMM yyyy"); //13 May 2019
+            return DateTime.Now.ToString("yyyyMMdd");   //20190513
+        }
+        private static String GetTime()
+        {
+            return DateTime.Now.ToString("HH:mm:ss");
         }
     }
 }

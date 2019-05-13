@@ -2,7 +2,7 @@
   "profiles": {
     "ConsoleClient": {
       "commandName": "Project",
-      "commandLineArgs": "logoutToCsv 10010 60 2048 1024 clientIdent"
+      "commandLineArgs": "logoutToCsv 2728 1.1.1.1 FF:FF:FF:FF:FF:FF clientIdent 60"
     }
   }
 }
